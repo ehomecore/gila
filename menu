@@ -1,0 +1,165 @@
+#!/bin/bash
+#Menu
+JUMLAH="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
+
+CPU=`egrep 'GHz' /proc/cpuinfo` 
+IP=`dig +short myip.opendns.com @resolver1.opendns.com` 
+UP=`uptime`
+HT=`hostname`
+
+
+
+  echo -e "\e[032;1mCPU model:\e[0m $cname"
+	echo -e "\e[032;1mNumber of cores:\e[0m $cores"
+	echo -e "\e[032;1mCPU frequency:\e[0m $freq MHz"
+	echo -e "\e[032;1mTotal amount of ram:\e[0m $tram MB"
+	echo -e "\e[032;1mTotal amount of swap:\e[0m $swap MB"
+	echo -e "\e[032;1mSystem uptime:\e[0m $up"
+	echo -e "------------------------------------------------------------------------------"
+	echo -e "Seputar SSH & OpenVPN"
+	echo -e "\e[38;5;196m[1]\e[38;5;82m Buat akun SSH & OpenVPN"
+	echo -e "\e[38;5;196m[2]\e[38;5;82m Generate akun SSH/OpenVPN"
+	echo -e "\e[38;5;196m[3]\e[38;5;82m Buat account trial untuk SSH & OpenVPN"
+	echo -e "\e[38;5;196m[4]\e[38;5;82m Tambah masa aktif akun SSH & OpenVPN "
+	echo -e "\e[38;5;196m[5]\e[38;5;82mGanti password akun SSH/OpenVPN"
+	echo -e "\e[38;5;196m[6]\e[38;5;82mBannned user yang melakukan multilogin"
+	echo -e "\e[38;5;196m[7]\e[38;5;82m Unbanned user SSH & OpenVPN yang terbanned "
+	echo -e "\e[38;5;196m[8]\e[38;5;82m Mengunci user SSH & OpenVPN"
+	echo -e "\e[38;5;196m[9]\e[38;5;82mMembuka user SSH & OpenVPN yang terkunci "
+	echo -e "\e[38;5;196m[10]\e[38;5;82mHapus Akun SSH & OpenVPN "
+	echo -e "\e[38;5;196m[11]\e[38;5;82mLihat detail user SSH & OpenVPN "
+	echo -e "\e[38;5;196m[12]\e[38;5;82mTampilkan daftar user SSH & OpenVPN "
+	echo -e "\e[38;5;196m[13]\e[38;5;82m Cek login Dropbear, OpenSSH, dan OpenVPN"
+	echo -e "\e[38;5;196m[14]\e[38;5;82mLihat log login Dropbear & OpenSSH"
+	echo -e "\e[38;5;196m[15]\e[38;5;82mKill Multi Login"
+	echo -e "\e[38;5;196m[16]\e[38;5;82mTampilkan user yang akan expired dalam waktu dekat"
+	echo -e "\e[38;5;196m[17]\e[38;5;82m Tampilkan user yang telah expired"
+	echo -e "\e[38;5;196m[18]\e[38;5;82m Hapus user SSH & OpenVPN yang telah expired"
+	echo -e "\e[38;5;196m[19]\e[38;5;82m Kunci user SSH & OpenVPN yang telah expired "
+	echo -e "\e[38;5;196m[20]\e[38;5;82m Lihat daftar user yang terkick "
+	echo -e "\e[38;5;196m[21]\e[38;5;82m Lihat daftar user yang terbanned"
+	echo -e "\e[38;5;196m[22]\e[38;5;82m Buat akun PPTP VPN "
+	echo -e "\e[38;5;196m[23]\e[38;5;82mHapus akun PPTP VPN"
+	echo -e "\e[38;5;196m[24]\e[38;5;82mLihat detail akun PPTP VPN "
+	echo -e "\e[38;5;196m[25]\e[38;5;82mCek login PPTP VPN "
+	echo -e "\e[38;5;196m[26]\e[38;5;82m Lihat daftar user"
+	echo -e "\e[38;5;196m[27]\e[38;5;82m Speedtest server"
+	echo -e "\e[38;5;196m[28]\e[38;5;82mBenchmark server"
+	echo -e "\e[38;5;196m[29]\e[38;5;82m Lihat penggunaan RAM server"
+if [[ "$OS" = 'debian' ]]; then 
+	echo -e "\e[38;5;196m[30]\e[38;5;82m Restart OpenSSH"
+	echo -e "\e[38;5;196m[31]\e[38;5;82mRestart Dropbear "
+	echo -e "\e[38;5;196m[32]\e[38;5;82m Restart OpenVPN"
+	echo -e "\e[38;5;196m[33]\e[38;5;82m Restart PPTP VPN"
+	echo -e "\e[38;5;196m[34]\e[38;5;82m Restart Webmin"
+	echo -e "\e[38;5;196m[35]\e[38;5;82mRestart Squid Proxy"
+else
+	echo -e "\e[38;5;196m[30]\e[38;5;82m Restart OpenSSH"
+	echo -e "\e[38;5;196m[31]\e[38;5;82mRestart Dropbear"
+	echo -e "\e[38;5;196m[32]\e[38;5;82m Restart OpenVPN"
+	echo -e "\e[38;5;196m[33]\e[38;5;82m Restart PPTP VPN"
+	echo -e "\e[38;5;196m[34]\e[38;5;82m Restart Webmin"
+	echo -e "\e[38;5;196m[35]\e[38;5;82mRestart Squid Proxy "
+fi
+echo -e "\e[38;5;196m[36]\e[38;5;82mEdit Port Server (${color2}edit-port${color3})"
+echo -e "\e[38;5;196m[37]\e[38;5;82mSet auto reboot pada server (${color2}auto-reboot${color3})"
+echo -e "\e[38;5;196m[38]\e[38;5;82m Reboot server(${color2}reboot${color3})"
+echo -e "\e[38;5;196m[39]\e[38;5;82m Ganti Password Server(${color2}passwd${color3})"
+echo -e "\e[38;5;196m[40]\e[38;5;82mLihat log instalasi (${color2}log-install${color3})"
+echo -e "\e[38;5;196m[14]\e[38;5;82m Update now"
+echo "-------------------------------------------"
+read -p "Tulis Pilihan Anda (angka): " x
+
+if [ "$nomer" = "1" ]
+then
+    menu
+elif [ "$nomer" = "2" ]
+then
+    user-new
+elif [ "$nomer" = "3" ]
+then
+    create-trial
+elif [ "$nomer" = "4" ]
+then
+    delete-user
+elif [ "$nomer" = "5" ]
+then
+    user-list
+elif [ "$nomer" = "6" ]
+then
+    user-login
+elif [ "$nomer" = "7" ]
+then
+   ./dropmon.sh    
+elif [ "$nomer" = "8" ]
+then
+    limit-login
+elif [ "$nomer" = "9" ]
+then
+    banner-edit
+elif [ "$nomer" = "10" ]
+then
+    speedtest
+elif [ "$nomer" = "11" ]
+then
+    info
+elif [ "$nomer" = "12" ]
+then
+    mem-info
+elif [ "$nomer" = "13" ]
+then
+    resvis
+elif [ "$nomer" = "14" ]
+then
+    /etc/init.d/webmin restart
+elif [ "$nomer" = "15" ]
+then
+    service ssh restart
+elif [ "$nomer" = "16" ]
+then
+    service dropbear restart
+
+elif [ "$nomer" = "17" ]
+then
+    service squid3 restart
+elif [ "$nomer" = "18" ]
+then
+    service openvpn restart
+
+elif [ "$nomer" = "19" ]
+then
+    nano /etc/hostname
+	hostname
+elif [ "$nomer" = "20" ]
+then
+    passwd
+elif [ "$nomer" = "21" ]
+then
+    nano /etc/default/dropbear
+elif [ "$nomer" = "22" ]
+then
+    nano /etc/squid3/squid.conf
+	service squid3 restart
+elif [ "$nomer" = "23" ]
+then
+    create-ocs
+elif [ "$nomer" = "24" ]
+then
+    nano /etc/webmin/miniserv.conf
+elif [ "$nomer" = "25" ]
+then
+    about-team
+elif [ "$nomer" = "26" ]
+then
+    reboot
+elif [ "$nomer" = "27" ]
+then
+    update
+elif [ "$nomer" = "0" ]
+then
+    exit
+else 
+    menu
+fi
+
+echo -e "\e[32;1m"	
